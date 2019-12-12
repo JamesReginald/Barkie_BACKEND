@@ -1,7 +1,6 @@
 package com.barkie.barkie.controller;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.barkie.barkie.domein.Wedstrijd;
@@ -17,4 +16,9 @@ public class WedstrijdService {
 
         wr.save(new Wedstrijd());
     }
+    
+    public Iterable<Wedstrijd> getWedstrijden() {
+    	return wr.findAll();
+    }
+    
 }
