@@ -2,6 +2,7 @@ package com.barkie.barkie.controller;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,13 @@ public class WedstrijdService {
 
     @Autowired
     WedstrijdRepository wr;
-
-    public void addWedstrijd(LocalDateTime tijd) {
-    	Wedstrijd newWed = new Wedstrijd();
-    	newWed.setBeginTijd(tijd);
-        wr.save(newWed);
+    
+    public void addWedstrijd(Wedstrijd newGame) {
+    	wr.save(newGame);
+    }
+    
+    public List<Wedstrijd> getAankomend() {
+    	return wr.findByBeginTijdAfter(LocalDateTime.now());
     }
     
     public Iterable<Wedstrijd> getWedstrijden() {
