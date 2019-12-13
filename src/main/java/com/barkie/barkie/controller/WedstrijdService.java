@@ -14,7 +14,7 @@ public class WedstrijdService {
 
     @Autowired
     WedstrijdRepository wr;
-    
+
     public void addWedstrijd(Wedstrijd newGame) {
     	wr.save(newGame);
     }
