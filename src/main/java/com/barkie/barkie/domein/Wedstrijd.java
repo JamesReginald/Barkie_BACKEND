@@ -32,6 +32,22 @@ public class Wedstrijd {
     @Column(name = "TeamThuis")
     private String teamThuis;
 
+    public String getTeamThuis() {
+        return teamThuis;
+    }
+
+    public void setTeamThuis(String teamThuis) {
+        this.teamThuis = teamThuis;
+    }
+
+    public String getTeamUit() {
+        return teamUit;
+    }
+
+    public void setTeamUit(String teamUit) {
+        this.teamUit = teamUit;
+    }
+
     @Column(name = "TeamUit")
     private String teamUit;
 
