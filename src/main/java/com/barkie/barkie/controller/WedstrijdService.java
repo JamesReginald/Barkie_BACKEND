@@ -14,9 +14,14 @@ public class WedstrijdService {
     @Autowired
     WedstrijdRepository wr;
 
-    public void addWedstrijd(LocalDateTime tijd) {
+    public void addWedstrijd(LocalDateTime beginTijd, double kansThuis, double kansUit, int scoreThuis, int scoreUit, String competitie) {
     	Wedstrijd newWed = new Wedstrijd();
-    	newWed.setBeginTijd(tijd);
+    	newWed.setBeginTijd(beginTijd);
+    	newWed.setKansThuis(kansThuis);
+    	newWed.setKansUit(kansUit);
+    	newWed.setScoreThuis(scoreThuis);
+    	newWed.setScoreUit(scoreUit);
+    	newWed.setCompetitie(competitie);
         wr.save(newWed);
     }
     
