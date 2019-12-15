@@ -10,24 +10,24 @@ public class Gebruiker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long gebruiker_id;
     private String gebruikersNaam;
     private String rol;
     private double wallet;
 
-    public Gebruiker( long id, String gebruikersNaam, String rol, double wallet) {
-        this.id = id;
+    public Gebruiker(long gebruiker_id, String gebruikersNaam, String rol, double wallet) {
+        this.gebruiker_id = gebruiker_id;
         this.gebruikersNaam = gebruikersNaam;
         this.rol = rol;
         this.wallet = wallet;
     }
 
-    public Long getId() {
-        return id;
+    public Long getGebruiker_id() {
+        return gebruiker_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setGebruiker_id(Long gebruiker_id) {
+        this.gebruiker_id = gebruiker_id;
     }
 
     public String getGebruikersNaam() {

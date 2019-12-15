@@ -1,24 +1,25 @@
 package com.barkie.barkie.domein;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Competitie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long comp_id;
 
     private String naamCompetie;
 
-    public long getId() {
-        return id;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "team_comp",
+            joinColumns = @JoinColumn(name = "team_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "comp_id", referencedColumnName = "id"))
+    private List<Team> teams;
 
-    public void setId(long id) {
-        this.id = id;
+
+    public long getComp_id() {
+        return comp_id;
     }
 
     public String getNaamCompetie() {

@@ -2,6 +2,7 @@ package com.barkie.barkie.domein;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Wedstrijd")
@@ -9,7 +10,7 @@ public class Wedstrijd {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long wedstrijd_id;
 
     @Column(name = "BeginTijd")
     private LocalDateTime beginTijd;
@@ -31,6 +32,10 @@ public class Wedstrijd {
 
     @Column(name = "TeamThuis")
     private String teamThuis;
+
+    @OneToMany(mappedBy = "team")
+    private List<Team> teams;
+
 
     public String getTeamThuis() {
         return teamThuis;
@@ -61,8 +66,8 @@ public class Wedstrijd {
         this.competitie = competitie;
     }
 
-    public long getId() {
-        return id;
+    public long getWedstrijd_id() {
+        return wedstrijd_id;
     }
 
     public LocalDateTime getBeginTijd() {
