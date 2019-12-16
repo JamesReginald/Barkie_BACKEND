@@ -12,10 +12,6 @@ public class Competitie {
 
     private String naamCompetie;
 
-
-
-
-
     public long getComp_id() {
         return comp_id;
     }
