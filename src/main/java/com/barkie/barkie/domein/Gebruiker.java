@@ -14,12 +14,14 @@ public class Gebruiker {
     private String gebruikersNaam;
     private String rol;
     private double wallet;
+    private String password;
 
-    public Gebruiker(long gebruiker_id, String gebruikersNaam, String rol, double wallet) {
-        this.gebruiker_id = gebruiker_id;
-        this.gebruikersNaam = gebruikersNaam;
-        this.rol = rol;
-        this.wallet = wallet;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Long getGebruiker_id() {

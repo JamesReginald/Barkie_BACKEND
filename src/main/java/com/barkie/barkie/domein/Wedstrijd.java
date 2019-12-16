@@ -33,9 +33,35 @@ public class Wedstrijd {
     @Column(name = "TeamThuis")
     private String teamThuis;
 
-    @OneToMany(mappedBy = "team")
-    private List<Team> teams;
+    @Column(name = "TeamUit")
+    private String teamUit;
 
+    @Column(name = "Competitie")
+    private String competitie;
+
+    @ManyToOne
+    private Team thuisTeam;
+
+    @ManyToOne
+    private Team uitTeam;
+
+
+
+    public Team getThuisTeam() {
+        return thuisTeam;
+    }
+
+    public void setThuisTeam(Team thuisTeam) {
+        this.thuisTeam = thuisTeam;
+    }
+
+    public Team getUitTeam() {
+        return uitTeam;
+    }
+
+    public void setUitTeam(Team uitTeam) {
+        this.uitTeam = uitTeam;
+    }
 
     public String getTeamThuis() {
         return teamThuis;
@@ -53,11 +79,8 @@ public class Wedstrijd {
         this.teamUit = teamUit;
     }
 
-    @Column(name = "TeamUit")
-    private String teamUit;
 
-    @Column(name = "Competitie")
-    private String competitie;
+
 
     public String getCompetitie() {
         return competitie;
