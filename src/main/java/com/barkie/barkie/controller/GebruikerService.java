@@ -8,5 +8,5 @@ public class GebruikerService {
     @Autowired
     GebruikerRepository gr;
 
-
+    
 }
