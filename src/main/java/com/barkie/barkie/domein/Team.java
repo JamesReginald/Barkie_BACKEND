@@ -1,6 +1,7 @@
 package com.barkie.barkie.domein;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Team {
@@ -9,12 +10,19 @@ public class Team {
     private long team_id;
     private String naamTeam;
 
-    @ManyToOne
-    @JoinColumn(name = "wedstrijd_id")
-    private Wedstrijd wedstrijd;
+    @ManyToMany
+    private List<Competitie> competities;
 
     public long getTeam_id() {
         return team_id;
+    }
+
+    public List<Competitie> getCompetities() {
+        return competities;
+    }
+
+    public void setCompetities(List<Competitie> competities) {
+        this.competities = competities;
     }
 
     public void setTeam_id(long team_id) {
