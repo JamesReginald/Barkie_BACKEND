@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Gebruiker {
 
@@ -14,6 +16,7 @@ public class Gebruiker {
     private String gebruikersNaam;
     private String rol;
     private double wallet;
+    @JsonIgnore
     private String password;
 
     public String getPassword() {

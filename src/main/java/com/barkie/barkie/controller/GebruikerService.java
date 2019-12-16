@@ -3,6 +3,8 @@ package com.barkie.barkie.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.barkie.barkie.domein.Gebruiker;
@@ -12,16 +14,22 @@ public class GebruikerService {
     @Autowired
     GebruikerRepository gr;
     
-    public long addGebruiker(Gebruiker newGebruiker) {
+    public ResponseEntity<Gebruiker> addGebruiker(Gebruiker newGebruiker) {
     	gr.save(newGebruiker);
-    	long newId = gr.findByGebruikersNaamAndPassword(newGebruiker.getGebruikersNaam(), newGebruiker.getPassword())
-    	.get(0)
-    	.getGebruiker_id();
-    	return newId;
+    	List<Gebruiker> nieuw = gr.findByGebruikersNaamAndPassword(newGebruiker.getGebruikersNaam(), newGebruiker.getPassword());
+    	if(nieuw.isEmpty()) {
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    	} else {
+    		Gebruiker nieuwGebruiker = nieuw.get(0);
+    		return new ResponseEntity<>(nieuwGebruiker, HttpStatus.OK);
+    	}
+    	
     }
 
-    public long getGebruiker(Gebruiker queryGebruiker) {
+    public ResponseEntity<Gebruiker> getGebruiker(Gebruiker queryGebruiker) {
     	List<Gebruiker> gebruikers = gr.findByGebruikersNaamAndPassword(queryGebruiker.getGebruikersNaam(), queryGebruiker.getPassword());
-    	return gebruikers.get(0).getGebruiker_id();
+    	if(gebruikers.isEmpty()) {
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    	} else return new ResponseEntity<>(gebruikers.get(0), HttpStatus.OK);
     }
 }
