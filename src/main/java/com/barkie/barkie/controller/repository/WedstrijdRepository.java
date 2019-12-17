@@ -1,4 +1,4 @@
-package com.barkie.barkie.controller;
+package com.barkie.barkie.controller.repository;
 
 import java.time.LocalDateTime;
 import java.util.List;

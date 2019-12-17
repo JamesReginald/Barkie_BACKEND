@@ -1,6 +1,6 @@
 package com.barkie.barkie.view;
 
-import com.barkie.barkie.controller.WedstrijdService;
+import com.barkie.barkie.controller.service.WedstrijdService;
 import com.barkie.barkie.domein.Wedstrijd;
 
 import java.util.List;

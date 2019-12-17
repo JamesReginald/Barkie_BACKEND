@@ -1,4 +1,4 @@
-package com.barkie.barkie.controller;
+package com.barkie.barkie.controller.repository;
 
 import com.barkie.barkie.domein.Competitie;
 import org.springframework.data.repository.CrudRepository;

@@ -1,9 +1,10 @@
-package com.barkie.barkie.controller;
+package com.barkie.barkie.controller.service;
 
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.barkie.barkie.controller.repository.WedstrijdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
