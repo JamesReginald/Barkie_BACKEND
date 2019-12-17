@@ -1,7 +1,8 @@
-package com.barkie.barkie.controller;
+package com.barkie.barkie.controller.service;
 
 import java.util.List;
 
+import com.barkie.barkie.controller.repository.GebruikerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,7 @@ import com.barkie.barkie.domein.Gebruiker;
 @Service
 public class GebruikerService {
     @Autowired
-    GebruikerRepository gr;
+	GebruikerRepository gr;
     
     public ResponseEntity<Gebruiker> addGebruiker(Gebruiker newGebruiker) {
     	List<Gebruiker> naamBezet = gr.findByGebruikersNaam(newGebruiker.getGebruikersNaam());

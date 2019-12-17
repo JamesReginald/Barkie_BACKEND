@@ -1,11 +1,6 @@
 package com.barkie.barkie.domein;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 @Entity
 public class Gebruiker {
@@ -15,8 +10,12 @@ public class Gebruiker {
     private long gebruiker_id;
     private String gebruikersNaam;
     private String rol;
-    private double wallet;
-    @JsonIgnore
+
+    /** Wallet object that holds the balance of the user and transactions */
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(unique = true)
+    private Wallet wallet;
+
     private String password;
 
     public String getPassword() {
@@ -51,12 +50,7 @@ public class Gebruiker {
         this.rol = rol;
     }
 
-    public double getWallet() {
+    public Wallet getWallet() {
         return wallet;
     }
-
-    public void setWallet(double wallet) {
-        this.wallet = wallet;
-    }
-
 }
