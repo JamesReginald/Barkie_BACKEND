@@ -6,6 +6,7 @@ import com.barkie.barkie.domein.Wedstrijd;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,17 +18,18 @@ public class WedstrijdEndpoint {
     WedstrijdService ws;
 	
 	@GetMapping("aankomend")
-	public List<Wedstrijd> getAankomend() {
+	public ResponseEntity<List<Wedstrijd>> getAankomend() {
 		return ws.getAankomend();
 	}
 	
 	@GetMapping("wedstrijden")
-	public Iterable<Wedstrijd> getWedstrijd() {
+	public ResponseEntity<Iterable<Wedstrijd>> getWedstrijd() {
 		return ws.getWedstrijden();
 	}
 	
 	@PostMapping("wedstrijd")
-	public void makeWedstrijd(@RequestBody Wedstrijd game) {
+	public ResponseEntity<Wedstrijd> makeWedstrijd(@RequestBody Wedstrijd game) {
 		ws.addWedstrijd(game);
+		return null;
 	}
 }
