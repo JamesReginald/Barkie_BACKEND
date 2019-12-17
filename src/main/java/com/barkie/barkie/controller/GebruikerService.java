@@ -15,15 +15,13 @@ public class GebruikerService {
     GebruikerRepository gr;
     
     public ResponseEntity<Gebruiker> addGebruiker(Gebruiker newGebruiker) {
-    	gr.save(newGebruiker);
-    	List<Gebruiker> nieuw = gr.findByGebruikersNaamAndPassword(newGebruiker.getGebruikersNaam(), newGebruiker.getPassword());
-    	if(nieuw.isEmpty()) {
-    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+    	List<Gebruiker> naamBezet = gr.findByGebruikersNaam(newGebruiker.getGebruikersNaam());
+    	if (naamBezet.isEmpty()) {
+    		Gebruiker toegevoegd = gr.save(newGebruiker);
+    		return new ResponseEntity<>(toegevoegd, HttpStatus.OK);
     	} else {
-    		Gebruiker nieuwGebruiker = nieuw.get(0);
-    		return new ResponseEntity<>(nieuwGebruiker, HttpStatus.OK);
+    		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     	}
-    	
     }
 
     public ResponseEntity<Gebruiker> getGebruiker(Gebruiker queryGebruiker) {
