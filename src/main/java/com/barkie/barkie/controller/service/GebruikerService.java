@@ -13,7 +13,7 @@ import com.barkie.barkie.domein.Gebruiker;
 @Service
 public class GebruikerService {
     @Autowired
-	GebruikerRepository gr;
+	private GebruikerRepository gr;
     
     public ResponseEntity<Gebruiker> addGebruiker(Gebruiker newGebruiker) {
     	List<Gebruiker> naamBezet = gr.findByGebruikersNaam(newGebruiker.getGebruikersNaam());

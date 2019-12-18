@@ -16,7 +16,7 @@ import com.barkie.barkie.domein.Wedstrijd;
 public class WedstrijdService {
 
     @Autowired
-    WedstrijdRepository wr;
+    private WedstrijdRepository wr;
 
     public ResponseEntity<Wedstrijd> addWedstrijd(Wedstrijd newGame) {
     	return new ResponseEntity<>(wr.save(newGame), HttpStatus.OK);
