@@ -11,13 +11,13 @@ import java.util.Optional;
 public class TeamService implements DefaultService<Team>{
 
     @Autowired
-    TeamRepository teamRepository;
+    private TeamRepository teamRepository;
 
     @Override
     public Team getFromId(Long id) {
-        Optional<Team> optionalWallet = teamRepository.findById(id);
-        if (optionalWallet.isPresent()) {
-            return optionalWallet.get();
+        Optional<Team> optionalTeam = teamRepository.findById(id);
+        if (optionalTeam.isPresent()) {
+            return optionalTeam.get();
         }
         return null;
     }

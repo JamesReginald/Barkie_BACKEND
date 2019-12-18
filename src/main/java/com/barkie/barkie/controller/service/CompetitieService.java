@@ -10,13 +10,13 @@ import java.util.Optional;
 @Service
 public class CompetitieService implements DefaultService<Competitie> {
     @Autowired
-    CompetitieRepository competitieRepository;
+    private CompetitieRepository competitieRepository;
 
     @Override
     public Competitie getFromId(Long id) {
-        Optional<Competitie> optionalWallet = competitieRepository.findById(id);
-        if (optionalWallet.isPresent()) {
-            return optionalWallet.get();
+        Optional<Competitie> optionalCompetitie = competitieRepository.findById(id);
+        if (optionalCompetitie.isPresent()) {
+            return optionalCompetitie.get();
         }
         return null;
     }
