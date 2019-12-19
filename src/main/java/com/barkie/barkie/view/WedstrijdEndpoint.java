@@ -29,7 +29,6 @@ public class WedstrijdEndpoint {
 	
 	@PostMapping("wedstrijd")
 	public ResponseEntity<Wedstrijd> makeWedstrijd(@RequestBody Wedstrijd game) {
-		ws.addWedstrijd(game);
-		return null;
+		return ws.addWedstrijd(game);
 	}
 }

@@ -2,6 +2,9 @@ package com.barkie.barkie.domein;
 
 import javax.persistence.*;
 
+/**
+ * Created by Joshua
+ */
 @Entity
 public class Aanvraag {
 
@@ -9,9 +12,11 @@ public class Aanvraag {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    /** this boolean represents whether the request by a user is granted or not */
     @Column
     private boolean isGoedgekeurd;
 
+    /** This double represents the amount of money the user wants to add to their wallet */
     @Column
     private double bedrag;
 
@@ -35,4 +40,12 @@ public class Aanvraag {
         this.bedrag = bedrag;
     }
 
+    @Override
+    public String toString() {
+        return "Aanvraag{" +
+                "id=" + id +
+                ", isGoedgekeurd=" + isGoedgekeurd +
+                ", bedrag=" + bedrag +
+                '}';
+    }
 }

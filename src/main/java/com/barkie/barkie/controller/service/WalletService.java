@@ -26,4 +26,9 @@ public class WalletService implements DefaultService<Wallet> {
     public Wallet save(Wallet wallet) {
         return walletRepository.save(wallet);
     }
+
+    @Override
+    public Iterable<Wallet> getAll() {
+        return walletRepository.findAll();
+    }
 }
