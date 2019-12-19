@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @Service
 public class CompetitieService implements DefaultService<Competitie> {
+
     @Autowired
     private CompetitieRepository competitieRepository;
 
@@ -24,6 +25,11 @@ public class CompetitieService implements DefaultService<Competitie> {
     @Override
     public Competitie save(Competitie competitie) {
         return competitieRepository.save(competitie);
+    }
+
+    @Override
+    public Iterable<Competitie> getAll() {
+        return competitieRepository.findAll();
     }
 }
 

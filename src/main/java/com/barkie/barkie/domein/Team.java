@@ -5,9 +5,12 @@ import java.util.List;
 
 @Entity
 public class Team {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long team_id;
+
+    /** String representation of the name of the team */
     private String naamTeam;
 
     @ManyToMany

@@ -45,8 +45,6 @@ public class Wedstrijd {
     @ManyToOne
     private Team uitTeam;
 
-
-
     public Team getThuisTeam() {
         return thuisTeam;
     }
@@ -78,9 +76,6 @@ public class Wedstrijd {
     public void setTeamUit(String teamUit) {
         this.teamUit = teamUit;
     }
-
-
-
 
     public String getCompetitie() {
         return competitie;

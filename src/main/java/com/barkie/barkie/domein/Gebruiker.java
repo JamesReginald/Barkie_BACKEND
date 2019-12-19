@@ -8,7 +8,11 @@ public class Gebruiker {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long gebruiker_id;
+
+    /** String representation of the username of the user */
     private String gebruikersNaam;
+
+    /** String representation of the role of the user */
     private String rol;
 
     /** Wallet object that holds the balance of the user and transactions */
@@ -16,6 +20,7 @@ public class Gebruiker {
     @JoinColumn(unique = true)
     private Wallet wallet;
 
+    /** String representation of the password of the user */
     private String password;
 
     public String getPassword() {
