@@ -26,5 +26,10 @@ public class TeamService implements DefaultService<Team>{
     public Team save(Team team) {
         return teamRepository.save(team);
     }
+
+    @Override
+    public Iterable<Team> getAll() {
+        return teamRepository.findAll();
+    }
 }
 

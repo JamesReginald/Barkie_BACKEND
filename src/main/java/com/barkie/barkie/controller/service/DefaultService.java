@@ -15,4 +15,10 @@ public interface DefaultService<T> {
      * @return generic object
      */
     T save(T object);
+
+    /**
+     * This method can be used to retrieve all objects of an entity
+     * @return Iterable containing all objects of an entity
+     */
+    Iterable<T> getAll();
 }

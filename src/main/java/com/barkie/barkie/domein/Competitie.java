@@ -1,7 +1,6 @@
 package com.barkie.barkie.domein;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Competitie {
@@ -10,17 +9,26 @@ public class Competitie {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long comp_id;
 
-    private String naamCompetie;
+    /** String representation of the name of the competition */
+    private String naam;
 
     public long getComp_id() {
         return comp_id;
     }
 
-    public String getNaamCompetie() {
-        return naamCompetie;
+    public String getNaam() {
+        return naam;
     }
 
-    public void setNaamCompetie(String naamCompetie) {
-        this.naamCompetie = naamCompetie;
+    public void setNaam(String naam) {
+        this.naam = naam;
+    }
+
+    @Override
+    public String toString() {
+        return "Competitie{" +
+                "comp_id=" + comp_id +
+                ", naam='" + naam + '\'' +
+                '}';
     }
 }

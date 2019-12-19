@@ -26,4 +26,9 @@ public class AanvraagService implements DefaultService<Aanvraag> {
     public Aanvraag save(Aanvraag aanvraag) {
         return aanvraagRepository.save(aanvraag);
     }
+
+    @Override
+    public Iterable<Aanvraag> getAll() {
+        return aanvraagRepository.findAll();
+    }
 }
