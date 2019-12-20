@@ -13,25 +13,23 @@ import com.barkie.barkie.domein.Wedstrijd;
 
 
 @Service
-public class WedstrijdService {
+public class WedstrijdService extends DefaultServiceImplementation<Wedstrijd>{
+
+    /** WedstrijdRepository object to persist Wedstrijd objects */
+    private WedstrijdRepository wedstrijdRepository;
 
     @Autowired
-    private WedstrijdRepository wr;
-
-    public ResponseEntity<Wedstrijd> addWedstrijd(Wedstrijd newGame) {
-    	return new ResponseEntity<>(wr.save(newGame), HttpStatus.OK);
+    public WedstrijdService(WedstrijdRepository wedstrijdRepository) {
+        super(wedstrijdRepository);
+        this.wedstrijdRepository = wedstrijdRepository;
     }
-    
+
     public ResponseEntity<List<Wedstrijd>> getAankomend() {
-    	List<Wedstrijd> aankomend = wr.findByBeginTijdAfter(LocalDateTime.now());
+    	List<Wedstrijd> aankomend = wedstrijdRepository.findByBeginTijdAfter(LocalDateTime.now());
     	if (aankomend.isEmpty()) {
     		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     	}
     	return new ResponseEntity<>(aankomend, HttpStatus.OK);
     }
-    
-    public ResponseEntity<Iterable<Wedstrijd>> getWedstrijden() {
-    	return new ResponseEntity<>(wr.findAll(), HttpStatus.OK);
-    }
-    
+
 }

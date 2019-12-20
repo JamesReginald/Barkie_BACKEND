@@ -1,5 +1,7 @@
 package com.barkie.barkie.domein;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -20,6 +22,11 @@ public class Aanvraag {
     @Column
     private double bedrag;
 
+    /** Gebruiker object that represents a user */
+    @ManyToOne
+    @JoinColumn(name = "gebruiker_id")
+    private Gebruiker gebruiker;
+
     public Long getId() {
         return id;
     }
@@ -38,6 +45,14 @@ public class Aanvraag {
 
     public void setBedrag(double bedrag) {
         this.bedrag = bedrag;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        this.gebruiker = gebruiker;
     }
 
     @Override

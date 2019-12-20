@@ -5,30 +5,16 @@ import com.barkie.barkie.domein.Aanvraag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
-public class AanvraagService implements DefaultService<Aanvraag> {
+public class AanvraagService extends DefaultServiceImplementation<Aanvraag> {
 
-    @Autowired
+    /** AanvraagRepository object to persist Aanvraag objects */
     private AanvraagRepository aanvraagRepository;
 
-    @Override
-    public Aanvraag getFromId(Long id) {
-        Optional<Aanvraag> optionalAanvraag = aanvraagRepository.findById(id);
-        if (optionalAanvraag.isPresent()) {
-            return optionalAanvraag.get();
-        }
-        return null;
+    @Autowired
+    public AanvraagService(AanvraagRepository aanvraagRepository) {
+        super(aanvraagRepository);
+        this.aanvraagRepository = aanvraagRepository;
     }
 
-    @Override
-    public Aanvraag save(Aanvraag aanvraag) {
-        return aanvraagRepository.save(aanvraag);
-    }
-
-    @Override
-    public Iterable<Aanvraag> getAll() {
-        return aanvraagRepository.findAll();
-    }
 }

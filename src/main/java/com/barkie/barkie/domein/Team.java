@@ -28,10 +28,6 @@ public class Team {
         this.competities = competities;
     }
 
-    public void setTeam_id(long team_id) {
-        this.team_id = team_id;
-    }
-
     public String getNaamTeam() {
         return naamTeam;
     }

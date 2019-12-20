@@ -16,6 +16,11 @@ public class Wallet {
     @Column
     private double saldo;
 
+    /** Gebruiker object that represents a user */
+    @OneToOne
+    @JoinColumn(name = "gebruiker_id")
+    private Gebruiker gebruiker;
+
     public Long getId() {
         return id;
     }
@@ -26,6 +31,14 @@ public class Wallet {
 
     public void setSaldo(double saldo) {
         this.saldo = saldo;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        this.gebruiker = gebruiker;
     }
 
     @Override

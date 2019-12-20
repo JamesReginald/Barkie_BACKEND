@@ -3,30 +3,17 @@ package com.barkie.barkie.controller.service;
 import com.barkie.barkie.controller.repository.WeddenschapRepository;
 import com.barkie.barkie.domein.Weddenschap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+@Service
+public class WeddenschapService extends DefaultServiceImplementation<Weddenschap> {
 
-public class WeddenschapService implements DefaultService<Weddenschap> {
-
-    @Autowired
+    /** WeddenschapRepository object to persist Weddenschap objects */
     private WeddenschapRepository weddenschapRepository;
 
-    @Override
-    public Weddenschap getFromId(Long id) {
-        Optional<Weddenschap> optionalWeddenschap = weddenschapRepository.findById(id);
-        if (optionalWeddenschap.isPresent()) {
-            return optionalWeddenschap.get();
-        }
-        return null;
-    }
-
-    @Override
-    public Weddenschap save(Weddenschap weddenschap) {
-        return weddenschapRepository.save(weddenschap);
-    }
-
-    @Override
-    public Iterable<Weddenschap> getAll() {
-        return weddenschapRepository.findAll();
+    @Autowired
+    public WeddenschapService(WeddenschapRepository weddenschapRepository) {
+        super(weddenschapRepository);
+        this.weddenschapRepository = weddenschapRepository;
     }
 }

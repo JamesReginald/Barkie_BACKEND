@@ -7,13 +7,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * This class doesn't extends from DefaultServiceImplementation because you don't want te return all Wallet objects
+ */
 @Service
-public class WalletService implements DefaultService<Wallet> {
+public class WalletService {
+
+    /** WalletRepository object to persist Wallet objects */
+    private final WalletRepository walletRepository;
 
     @Autowired
-    private WalletRepository walletRepository;
+    public WalletService(WalletRepository walletRepository) {
+        this.walletRepository = walletRepository;
+    }
 
-    @Override
     public Wallet getFromId(Long id) {
         Optional<Wallet> optionalWallet = walletRepository.findById(id);
         if (optionalWallet.isPresent()) {
@@ -22,12 +29,10 @@ public class WalletService implements DefaultService<Wallet> {
         return null;
     }
 
-    @Override
     public Wallet save(Wallet wallet) {
         return walletRepository.save(wallet);
     }
 
-    @Override
     public Iterable<Wallet> getAll() {
         return walletRepository.findAll();
     }
