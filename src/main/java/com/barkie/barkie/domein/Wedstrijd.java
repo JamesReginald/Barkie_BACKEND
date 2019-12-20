@@ -45,6 +45,10 @@ public class Wedstrijd {
     @ManyToOne
     private Team uitTeam;
 
+    /** List containing Weddenschap objects */
+    @OneToMany(mappedBy = "wedstrijd", cascade = CascadeType.ALL)
+    private List<Weddenschap> weddenschappen;
+
     public Team getThuisTeam() {
         return thuisTeam;
     }
@@ -130,5 +134,13 @@ public class Wedstrijd {
 
     public void setScoreUit(int scoreUit) {
         this.scoreUit = scoreUit;
+    }
+
+    public List<Weddenschap> getWeddenschappen() {
+        return weddenschappen;
+    }
+
+    public void setWeddenschappen(List<Weddenschap> weddenschappen) {
+        this.weddenschappen = weddenschappen;
     }
 }

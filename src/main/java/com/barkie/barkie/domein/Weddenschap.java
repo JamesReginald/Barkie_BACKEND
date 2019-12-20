@@ -23,6 +23,16 @@ public class Weddenschap {
     /** enum that indicates the users bet on a game */
     private Bet weddenschap;
 
+    /** Gebruiker object that represents a user */
+    @ManyToOne
+    @JoinColumn(name = "gebruiker_id")
+    private Gebruiker gebruiker;
+
+    /** Wedstrijd object that represents a game */
+    @ManyToOne
+    @JoinColumn(name = "wedstrijd_id")
+    private Wedstrijd wedstrijd;
+
     public long getId() {
         return id;
     }
@@ -41,5 +51,21 @@ public class Weddenschap {
 
     public void setWeddenschap(Bet weddenschap) {
         this.weddenschap = weddenschap;
+    }
+
+    public Gebruiker getGebruiker() {
+        return gebruiker;
+    }
+
+    public void setGebruiker(Gebruiker gebruiker) {
+        this.gebruiker = gebruiker;
+    }
+
+    public Wedstrijd getWedstrijd() {
+        return wedstrijd;
+    }
+
+    public void setWedstrijd(Wedstrijd wedstrijd) {
+        this.wedstrijd = wedstrijd;
     }
 }

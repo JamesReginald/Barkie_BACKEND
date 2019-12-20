@@ -12,12 +12,18 @@ import org.springframework.stereotype.Service;
 import com.barkie.barkie.domein.Gebruiker;
 
 @Service
-public class GebruikerService implements DefaultService<Gebruiker> {
+public class GebruikerService extends DefaultServiceImplementation<Gebruiker> {
 
-    @Autowired
-	private GebruikerRepository gr;
+	/** GebruikerRepository object to persist Gebruiker objects */
+	private final GebruikerRepository gr;
 
-    public ResponseEntity<Gebruiker> getGebruiker(Gebruiker queryGebruiker) {
+	@Autowired
+	public GebruikerService(GebruikerRepository gebruikerRepository) {
+		super(gebruikerRepository);
+		this.gr = gebruikerRepository;
+	}
+
+	public ResponseEntity<Gebruiker> getGebruiker(Gebruiker queryGebruiker) {
     	List<Gebruiker> gebruikers = gr.findByGebruikersNaamAndPassword(queryGebruiker.getGebruikersNaam(), queryGebruiker.getPassword());
     	if(gebruikers.isEmpty()) {
     		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
@@ -35,24 +41,5 @@ public class GebruikerService implements DefaultService<Gebruiker> {
 			return optionalGebruikerBezet.get();
 		}
 		return null;
-	}
-
-	@Override
-	public Gebruiker getFromId(Long id) {
-		Optional<Gebruiker> optionalGebruiker = gr.findById(id);
-		if (optionalGebruiker.isPresent()) {
-			return optionalGebruiker.get();
-		}
-		return null;
-	}
-
-	@Override
-	public Gebruiker save(Gebruiker newGebruiker) {
-		return gr.save(newGebruiker);
-	}
-
-	@Override
-	public Iterable<Gebruiker> getAll() {
-		return gr.findAll();
 	}
 }

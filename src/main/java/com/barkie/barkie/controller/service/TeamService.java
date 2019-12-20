@@ -5,31 +5,17 @@ import com.barkie.barkie.domein.Team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
-public class TeamService implements DefaultService<Team>{
+public class TeamService extends DefaultServiceImplementation<Team>{
 
-    @Autowired
+    /** TeamRepository object to persist Team objects */
     private TeamRepository teamRepository;
 
-    @Override
-    public Team getFromId(Long id) {
-        Optional<Team> optionalTeam = teamRepository.findById(id);
-        if (optionalTeam.isPresent()) {
-            return optionalTeam.get();
-        }
-        return null;
+    @Autowired
+    public TeamService(TeamRepository teamRepository) {
+        super(teamRepository);
+        this.teamRepository = teamRepository;
     }
 
-    @Override
-    public Team save(Team team) {
-        return teamRepository.save(team);
-    }
-
-    @Override
-    public Iterable<Team> getAll() {
-        return teamRepository.findAll();
-    }
 }
 
