@@ -12,7 +12,7 @@ public class Aanvraag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     /** this boolean represents whether the request by a user is granted or not */
     @Column
@@ -20,14 +20,15 @@ public class Aanvraag {
 
     /** This double represents the amount of money the user wants to add to their wallet */
     @Column
-    private double bedrag;
+    private int bedrag;
 
     /** Gebruiker object that represents a user */
     @ManyToOne
     @JoinColumn(name = "gebruiker_id")
     private Gebruiker gebruiker;
 
-    public Long getId() {
+
+    public long getId() {
         return id;
     }
 
@@ -43,7 +44,7 @@ public class Aanvraag {
         return bedrag;
     }
 
-    public void setBedrag(double bedrag) {
+    public void setBedrag(int bedrag) {
         this.bedrag = bedrag;
     }
 
