@@ -3,10 +3,7 @@ package com.barkie.barkie.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.barkie.barkie.controller.service.GebruikerService;
 import com.barkie.barkie.domein.Gebruiker;
@@ -43,5 +40,9 @@ public class GebruikerEndpoint {
 			gebruikers.add(iterator.next());
 		}
 		return gebruikers;
+	}
+	@RequestMapping("gebruiker/{id}")
+	public Gebruiker gebruiker(@PathVariable long id){
+		return gs.getFromId(id);
 	}
 }

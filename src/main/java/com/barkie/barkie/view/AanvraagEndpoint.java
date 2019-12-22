@@ -1,11 +1,14 @@
 package com.barkie.barkie.view;
 
+import com.barkie.barkie.controller.repository.AanvraagRepository;
 import com.barkie.barkie.controller.service.AanvraagService;
 import com.barkie.barkie.domein.Aanvraag;
+import com.barkie.barkie.domein.Gebruiker;
+import com.barkie.barkie.domein.Wedstrijd;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,5 +38,25 @@ public class AanvraagEndpoint {
             aanvragen.add(iterator.next());
         }
         return aanvragen;
+    }
+
+    @RequestMapping(method= RequestMethod.POST, value = "/")
+    public void addAanvraag(@RequestBody Aanvraag aanvraag){
+        aanvraagService.addAanvraag(aanvraag);
+    }
+
+    @RequestMapping("/{id}")
+        public Aanvraag getAanvraag(@PathVariable long id){
+        return aanvraagService.getFromId( id);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value ="/{id}")
+    public void deleteAanvraag(@PathVariable long id){
+        aanvraagService.deleteAanvraag(id);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public void updateAanvraag(@RequestBody Aanvraag aanvraag, @PathVariable long id){
+        aanvraagService.updateAanvraag(aanvraag, id);
     }
 }
