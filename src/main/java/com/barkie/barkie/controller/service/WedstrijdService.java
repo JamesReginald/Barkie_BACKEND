@@ -13,7 +13,7 @@ import com.barkie.barkie.domein.Wedstrijd;
 
 
 @Service
-public class WedstrijdService extends DefaultServiceImplementation<Wedstrijd>{
+public class WedstrijdService extends DefaultService<Wedstrijd>{
 
     /** WedstrijdRepository object to persist Wedstrijd objects */
     private WedstrijdRepository wedstrijdRepository;

@@ -32,11 +32,6 @@ public class Gebruiker {
     /** String representation of the role of the user */
     private String rol;
 
-    /** Wallet object that holds the balance of the user and transactions */
-    @OneToOne(mappedBy = "gebruiker", cascade = CascadeType.ALL)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Wallet wallet;
-
     /** List containing all Aanvraag objects of the user */
     @OneToMany(mappedBy = "gebruiker", cascade = CascadeType.PERSIST)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -77,14 +72,6 @@ public class Gebruiker {
 
     public void setRol(String rol) {
         this.rol = rol;
-    }
-
-    public Wallet getWallet() {
-        return wallet;
-    }
-
-    public void setWallet(Wallet wallet) {
-        this.wallet = wallet;
     }
 
     public List<Aanvraag> getAanvragen() {

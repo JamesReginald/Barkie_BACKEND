@@ -8,12 +8,12 @@ import java.util.Optional;
  * This awesome class is made by Joshua
  * @param <T> Generic class to persist the objects to the database
  */
-public class DefaultServiceImplementation<T> {
+public class DefaultService<T> {
 
     /** CrudRepository object to persist object to the database */
     private CrudRepository crudRepository;
 
-    DefaultServiceImplementation(CrudRepository crudRepository) {
+    DefaultService(CrudRepository crudRepository) {
         this.crudRepository = crudRepository;
     }
 

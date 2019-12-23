@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CompetitieService extends DefaultServiceImplementation<Competitie> {
+public class CompetitieService extends DefaultService<Competitie> {
 
     /** CompetitieRepository object to persist Competitie objects */
     private CompetitieRepository competitieRepository;

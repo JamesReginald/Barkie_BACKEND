@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TeamService extends DefaultServiceImplementation<Team>{
+public class TeamService extends DefaultService<Team>{
 
     /** TeamRepository object to persist Team objects */
     private TeamRepository teamRepository;
