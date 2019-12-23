@@ -1,13 +1,8 @@
 package com.barkie.barkie.view;
 
-import com.barkie.barkie.controller.repository.AanvraagRepository;
 import com.barkie.barkie.controller.service.AanvraagService;
 import com.barkie.barkie.domein.Aanvraag;
-import com.barkie.barkie.domein.Gebruiker;
-import com.barkie.barkie.domein.Wedstrijd;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -42,7 +37,7 @@ public class AanvraagEndpoint {
 
     @RequestMapping(method= RequestMethod.POST, value = "/")
     public void addAanvraag(@RequestBody Aanvraag aanvraag){
-        aanvraagService.addAanvraag(aanvraag);
+        aanvraagService.save(aanvraag);
     }
 
     @RequestMapping("/{id}")
@@ -58,7 +53,7 @@ public class AanvraagEndpoint {
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public void updateAanvraag(@RequestBody Aanvraag aanvraag, @PathVariable long id){
         if(id==aanvraag.getId())
-        aanvraagService.updateAanvraag(aanvraag, id);
+            aanvraagService.save(aanvraag);
     }
 
 

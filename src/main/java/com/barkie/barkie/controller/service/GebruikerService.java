@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.barkie.barkie.domein.Gebruiker;
 
 @Service
-public class GebruikerService extends DefaultServiceImplementation<Gebruiker> {
+public class GebruikerService extends DefaultService<Gebruiker> {
 
 	/** GebruikerRepository object to persist Gebruiker objects */
 	private final GebruikerRepository gr;

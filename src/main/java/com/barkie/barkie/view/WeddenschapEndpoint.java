@@ -42,7 +42,7 @@ public class WeddenschapEndpoint {
 
     @RequestMapping(method = RequestMethod.POST, value = "/")
     public void addWeddenschap(@RequestBody Weddenschap weddenschap){
-        weddenschapService.addWeddenschap(weddenschap);
+        weddenschapService.save(weddenschap);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")

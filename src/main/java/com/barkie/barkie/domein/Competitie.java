@@ -1,6 +1,9 @@
 package com.barkie.barkie.domein;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class Competitie {
@@ -12,6 +15,10 @@ public class Competitie {
     /** String representation of the name of the competition */
     private String naam;
 
+    /** List containing Team objects */
+    @ManyToMany(mappedBy = "competities")
+    private List<Team> teams;
+
     public long getComp_id() {
         return comp_id;
     }
@@ -22,6 +29,15 @@ public class Competitie {
 
     public void setNaam(String naam) {
         this.naam = naam;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
+        teams.forEach(t -> t.setCompetities(Arrays.asList(this)));
     }
 
     @Override

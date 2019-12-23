@@ -1,5 +1,7 @@
 package com.barkie.barkie.domein;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,7 +15,12 @@ public class Team {
     /** String representation of the name of the team */
     private String naamTeam;
 
+    /** List containing Competitie objects */
     @ManyToMany
+    @JoinTable(name="TEAM_COMPETITIE",
+            joinColumns = @JoinColumn(name="TEAM_ID"),
+            inverseJoinColumns = @JoinColumn(name="COMPETITIE_ID"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Competitie> competities;
 
     public long getTeam_id() {

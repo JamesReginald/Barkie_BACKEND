@@ -9,12 +9,10 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AanvraagService extends DefaultServiceImplementation<Aanvraag> {
+public class AanvraagService extends DefaultService<Aanvraag> {
 
     /** AanvraagRepository object to persist Aanvraag objects */
     private AanvraagRepository aanvraagRepository;
-
-
 
     @Autowired
     public AanvraagService(AanvraagRepository aanvraagRepository) {
@@ -22,26 +20,8 @@ public class AanvraagService extends DefaultServiceImplementation<Aanvraag> {
         this.aanvraagRepository = aanvraagRepository;
     }
 
-    public void addAanvraag(Aanvraag aanvraag)
-    {
-        aanvraagRepository.save(aanvraag);
-    }
-
-
-    public Aanvraag getAanvraag(long id) {
-        Optional<Aanvraag> optionalAanvraag = aanvraagRepository.findById(id);
-        if (optionalAanvraag.isPresent()){
-            return optionalAanvraag.get();
-        }
-        return null;
-    }
-
     public void deleteAanvraag(long id) {
         aanvraagRepository.deleteById(id);
     }
 
-    public void updateAanvraag(Aanvraag aanvraag, long id ){
-       aanvraagRepository.save(aanvraag);
-
-    }
 }
