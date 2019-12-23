@@ -3,9 +3,7 @@ package com.barkie.barkie.view;
 import com.barkie.barkie.controller.service.WeddenschapService;
 import com.barkie.barkie.domein.Weddenschap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -35,5 +33,24 @@ public class WeddenschapEndpoint {
             weddenschappen.add(iterator.next());
         }
         return weddenschappen;
+    }
+    @RequestMapping("/{id}")
+    public Weddenschap getWeddenschap(@PathVariable Long id){
+        Weddenschap weddenschap =weddenschapService.getFromId(id);
+        return weddenschap;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/")
+    public void addWeddenschap(@RequestBody Weddenschap weddenschap){
+        weddenschapService.addWeddenschap(weddenschap);
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
+    public void updateWeddenschap(@PathVariable long id, @RequestBody Weddenschap weddenschap){
+        weddenschapService.save(weddenschap);
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    public void deleteWeddenschap(@PathVariable long id){ weddenschapService.deleteWeddenschap(id);
     }
 }

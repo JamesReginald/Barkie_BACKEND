@@ -1,13 +1,11 @@
 package com.barkie.barkie.controller.service;
 
 import com.barkie.barkie.controller.repository.AanvraagRepository;
-import com.barkie.barkie.controller.repository.GebruikerRepository;
 import com.barkie.barkie.domein.Aanvraag;
-import com.barkie.barkie.domein.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 import java.util.Optional;
 
 @Service

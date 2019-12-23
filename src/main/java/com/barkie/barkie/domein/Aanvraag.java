@@ -20,7 +20,7 @@ public class Aanvraag {
 
     /** This double represents the amount of money the user wants to add to their wallet */
     @Column
-    private int bedrag;
+    private double bedrag;
 
     /** Gebruiker object that represents a user */
     @ManyToOne
@@ -44,7 +44,7 @@ public class Aanvraag {
         return bedrag;
     }
 
-    public void setBedrag(int bedrag) {
+    public void setBedrag(double bedrag) {
         this.bedrag = bedrag;
     }
 
