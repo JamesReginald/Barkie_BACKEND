@@ -15,6 +15,16 @@ public class Gebruiker {
     /** String representation of the username of the user */
     private String gebruikersNaam;
 
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(double saldo) {
+        this.saldo += saldo;
+    }
+
+    private double saldo;
+
     /** String representation of the password of the user */
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;

@@ -59,4 +59,6 @@ public class AanvraagEndpoint {
     public void updateAanvraag(@RequestBody Aanvraag aanvraag, @PathVariable long id){
         aanvraagService.updateAanvraag(aanvraag, id);
     }
+
+
 }

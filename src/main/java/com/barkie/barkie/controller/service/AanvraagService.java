@@ -42,7 +42,7 @@ public class AanvraagService extends DefaultServiceImplementation<Aanvraag> {
         aanvraagRepository.deleteById(id);
     }
 
-    public void updateAanvraag(Aanvraag aanvraag, long id) {
+    public void updateAanvraag(Aanvraag aanvraag, long id ){
        aanvraagRepository.save(aanvraag);
 
     }
