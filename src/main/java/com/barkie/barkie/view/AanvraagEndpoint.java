@@ -57,6 +57,10 @@ public class AanvraagEndpoint {
 
     @RequestMapping(method = RequestMethod.PUT, value = "/{id}")
     public void updateAanvraag(@RequestBody Aanvraag aanvraag, @PathVariable long id){
+        if(id==aanvraag.getId())
         aanvraagService.updateAanvraag(aanvraag, id);
     }
+
+
+
 }

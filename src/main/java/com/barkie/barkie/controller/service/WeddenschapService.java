@@ -16,4 +16,12 @@ public class WeddenschapService extends DefaultServiceImplementation<Weddenschap
         super(weddenschapRepository);
         this.weddenschapRepository = weddenschapRepository;
     }
+
+    public void addWeddenschap(Weddenschap weddenschap) {
+        weddenschapRepository.save(weddenschap);
+    }
+
+    public void deleteWeddenschap(long id) {
+        weddenschapRepository.deleteById(id);
+    }
 }

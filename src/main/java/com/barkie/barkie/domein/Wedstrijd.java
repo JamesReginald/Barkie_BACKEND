@@ -84,6 +84,7 @@ public class Wedstrijd {
     public String getCompetitie() {
         return competitie;
     }
+
     public void setCompetitie(String competitie) {
         this.competitie = competitie;
     }

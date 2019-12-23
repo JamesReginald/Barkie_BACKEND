@@ -1,5 +1,6 @@
 package com.barkie.barkie.view;
 
+import com.barkie.barkie.domein.Aanvraag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +45,16 @@ public class GebruikerEndpoint {
 	@RequestMapping("gebruiker/{id}")
 	public Gebruiker gebruiker(@PathVariable long id){
 		return gs.getFromId(id);
+	}
+
+	@RequestMapping(method = RequestMethod.PUT, value = "gebruiker/{id}/saldo")
+	public void setSaldo(@PathVariable long id, @RequestBody Aanvraag aanvraag){
+		Gebruiker gebruiker = gs.getFromId(id);
+		double geldAanvraag = aanvraag.getBedrag();
+		if(aanvraag.isGoedgekeurd()){
+			gebruiker.setSaldo(geldAanvraag);
+			gs.save(gebruiker);
+		}
+
 	}
 }
