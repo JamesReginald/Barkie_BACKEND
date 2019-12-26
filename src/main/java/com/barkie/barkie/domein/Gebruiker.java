@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Gebruiker {
@@ -13,7 +14,7 @@ public class Gebruiker {
     private long gebruiker_id;
 
     /** String representation of the username of the user */
-    private String gebruikersNaam;
+    private String username;
 
     public double getSaldo() {
         return saldo;
@@ -29,8 +30,13 @@ public class Gebruiker {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    /** String representation of the role of the user */
-    private String rol;
+    /** List containing Role objects */
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="GEBRUIKER_ROLES",
+            joinColumns = @JoinColumn(name="GEBRUIKER_ID"),
+            inverseJoinColumns = @JoinColumn(name="ROLE_ID"))
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Set<Role> roles;
 
     /** List containing all Aanvraag objects of the user */
     @OneToMany(mappedBy = "gebruiker", cascade = CascadeType.PERSIST)
@@ -58,20 +64,20 @@ public class Gebruiker {
         this.gebruiker_id = gebruiker_id;
     }
 
-    public String getGebruikersNaam() {
-        return gebruikersNaam;
+    public String getUsername() {
+        return username;
     }
 
-    public void setGebruikersNaam(String gebruikersNaam) {
-        this.gebruikersNaam = gebruikersNaam;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getRol() {
-        return rol;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     public List<Aanvraag> getAanvragen() {

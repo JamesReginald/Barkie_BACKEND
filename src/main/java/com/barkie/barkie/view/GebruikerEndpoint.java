@@ -21,7 +21,7 @@ public class GebruikerEndpoint {
 	
 	@PostMapping("gebruiker/create")
 	public ResponseEntity<Gebruiker> setGebruiker(@RequestBody Gebruiker newGebruiker) {
-		if (gs.getGebruikerFromNaam(newGebruiker.getGebruikersNaam()) == null) {
+		if (gs.getGebruikerFromNaam(newGebruiker.getUsername()) == null) {
 			return new ResponseEntity<>(gs.save(newGebruiker), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);

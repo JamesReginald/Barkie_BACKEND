@@ -3,12 +3,17 @@ package com.barkie.barkie.config;
 import com.barkie.barkie.controller.service.*;
 import com.barkie.barkie.domein.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class BarkieInitializer {
@@ -18,21 +23,28 @@ public class BarkieInitializer {
     private final WeddenschapService weddenschapService;
     private final TeamService teamService;
     private final CompetitieService competitieService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public BarkieInitializer(GebruikerService gebruikerService, WedstrijdService wedstrijdService, WeddenschapService weddenschapService, TeamService teamService, CompetitieService competitieService) {
+    public BarkieInitializer(GebruikerService gebruikerService, WedstrijdService wedstrijdService, WeddenschapService weddenschapService, TeamService teamService, CompetitieService competitieService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.gebruikerService = gebruikerService;
         this.wedstrijdService = wedstrijdService;
         this.weddenschapService = weddenschapService;
         this.teamService = teamService;
         this.competitieService = competitieService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
     public void init() {
-        Gebruiker joshua = createUser("Joshua", "password");
-        Gebruiker jim= createUser("Jim", "password");
-        Gebruiker joey = createUser("Joey", "password");
+
+        Role adminRole = createRoleIfNotFound("ROLE_ADMIN");
+        Role userRole = createRoleIfNotFound("ROLE_USER");
+
+        Gebruiker admin = createUserIfNotFound("admin", Stream.of(userRole, adminRole).collect(Collectors.toSet()));
+        Gebruiker user = createUserIfNotFound("user", Stream.of(userRole).collect(Collectors.toSet()));
 
         Team barcelona = createTeam("FC Barcelona");
         Team liverpool = createTeam("Liverpool");
@@ -47,23 +59,40 @@ public class BarkieInitializer {
 
         Competitie championsLeague = createCompetitie("Champions League", teams);
 
-        Weddenschap weddenschap1 = createWeddenschap(20.00, joshua, Weddenschap.Bet.GELIJK);
-        Weddenschap weddenschap2 = createWeddenschap(23.00, jim, Weddenschap.Bet.THUIS);
-        Weddenschap weddenschap3 = createWeddenschap(50, joey, Weddenschap.Bet.UIT);
+        Wedstrijd wedstrijd1 = createWedstrijd(LocalDateTime.now(), 1.78, 5.7, 4.87, barcelona, liverpool);
+        Wedstrijd wedstrijd2 = createWedstrijd(LocalDateTime.now(), 4.25, 7.3, 1.24, ajax, realMadrid);
+        Wedstrijd wedstrijd3 = createWedstrijd(LocalDateTime.now(), 6.32, 5.3, 1.1, liverpool, ajax);
+
+        Weddenschap weddenschap1 = createWeddenschap(20.00, user, Weddenschap.Bet.GELIJK, wedstrijd1);
+        Weddenschap weddenschap2 = createWeddenschap(23.00, user, Weddenschap.Bet.THUIS, wedstrijd2);
+        Weddenschap weddenschap3 = createWeddenschap(50, admin, Weddenschap.Bet.UIT, wedstrijd1);
     }
 
-    private Gebruiker createUser(String username, String password) {
-        Gebruiker gebruiker = new Gebruiker();
-        gebruiker.setGebruikersNaam(username);
-        gebruiker.setPassword(password);
-        return gebruikerService.save(gebruiker);
+    /**
+     * Creates a role when specified role is not found in the database
+     * @param username String representation of the username
+     * @return User
+     */
+    private Gebruiker createUserIfNotFound(String username, Set<Role> roles) {
+        Gebruiker user = gebruikerService.getGebruikerFromNaam(username);
+
+        if (user == null) {
+            user = new Gebruiker();
+            user.setUsername(username);
+            user.setPassword(passwordEncoder.encode("password"));
+            user.setRoles(roles);
+            gebruikerService.save(user);
+        }
+
+        return user;
     }
 
-    private Weddenschap createWeddenschap(double amount, Gebruiker gebruiker, Weddenschap.Bet bet) {
+    private Weddenschap createWeddenschap(double amount, Gebruiker gebruiker, Weddenschap.Bet bet, Wedstrijd wedstrijd) {
         Weddenschap weddenschap = new Weddenschap();
         weddenschap.setBedrag(amount);
         weddenschap.setGebruiker(gebruiker);
         weddenschap.setWeddenschap(bet);
+        weddenschap.setWedstrijd(wedstrijd);
         return weddenschapService.save(weddenschap);
     }
 
@@ -83,6 +112,35 @@ public class BarkieInitializer {
             teamService.save(team);
         }
         return saved;
+    }
+
+    private Wedstrijd createWedstrijd(LocalDateTime speelDatumTijd, double kansThuis, double kansGelijk,
+                                      double kansUit, Team thuisTeam, Team uitTeam){
+        Wedstrijd wedstrijd = new Wedstrijd();
+        wedstrijd.setBeginTijd(speelDatumTijd);
+        wedstrijd.setKansThuis(kansThuis);
+        wedstrijd.setKansGelijk(kansGelijk);
+        wedstrijd.setKansUit(kansUit);
+        wedstrijd.setThuisTeam(thuisTeam);
+        wedstrijd.setUitTeam(uitTeam);
+
+        return wedstrijdService.save(wedstrijd);
+    }
+
+    /**
+     * Creates a role when specified role is not found in the database
+     * @param roleName String representation of the role name
+     * @return Role
+     */
+    private Role createRoleIfNotFound(String roleName) {
+        Role role = roleService.findByName(roleName);
+
+        if (role == null) {
+            role = new Role(roleName);
+            roleService.save(role);
+        }
+
+        return role;
     }
 
 }

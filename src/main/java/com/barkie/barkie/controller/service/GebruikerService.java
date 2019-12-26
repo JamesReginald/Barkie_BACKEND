@@ -24,7 +24,7 @@ public class GebruikerService extends DefaultService<Gebruiker> {
 	}
 
 	public ResponseEntity<Gebruiker> getGebruiker(Gebruiker queryGebruiker) {
-    	List<Gebruiker> gebruikers = gr.findByGebruikersNaamAndPassword(queryGebruiker.getGebruikersNaam(), queryGebruiker.getPassword());
+    	List<Gebruiker> gebruikers = gr.findByUsernameAndPassword(queryGebruiker.getUsername(), queryGebruiker.getPassword());
     	if(gebruikers.isEmpty()) {
     		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     	} else return new ResponseEntity<>(gebruikers.get(0), HttpStatus.OK);
@@ -36,7 +36,7 @@ public class GebruikerService extends DefaultService<Gebruiker> {
 	 * @return Gebruiker object
 	 */
 	public Gebruiker getGebruikerFromNaam(String naam) {
-		Optional<Gebruiker> optionalGebruikerBezet = gr.findByGebruikersNaam(naam);
+		Optional<Gebruiker> optionalGebruikerBezet = gr.findByUsername(naam);
 		if (optionalGebruikerBezet.isPresent()) {
 			return optionalGebruikerBezet.get();
 		}
