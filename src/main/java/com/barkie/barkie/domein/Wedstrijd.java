@@ -1,5 +1,7 @@
 package com.barkie.barkie.domein;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,15 +32,6 @@ public class Wedstrijd {
     @Column(name = "ScoreUit")
     private int scoreUit = 0;
 
-    @Column(name = "TeamThuis")
-    private String teamThuis;
-
-    @Column(name = "TeamUit")
-    private String teamUit;
-
-    @Column(name = "Competitie")
-    private String competitie;
-
     @ManyToOne
     private Team thuisTeam;
 
@@ -47,6 +40,7 @@ public class Wedstrijd {
 
     /** List containing Weddenschap objects */
     @OneToMany(mappedBy = "wedstrijd", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Weddenschap> weddenschappen;
 
     public Team getThuisTeam() {
@@ -63,30 +57,6 @@ public class Wedstrijd {
 
     public void setUitTeam(Team uitTeam) {
         this.uitTeam = uitTeam;
-    }
-
-    public String getTeamThuis() {
-        return teamThuis;
-    }
-
-    public void setTeamThuis(String teamThuis) {
-        this.teamThuis = teamThuis;
-    }
-
-    public String getTeamUit() {
-        return teamUit;
-    }
-
-    public void setTeamUit(String teamUit) {
-        this.teamUit = teamUit;
-    }
-
-    public String getCompetitie() {
-        return competitie;
-    }
-
-    public void setCompetitie(String competitie) {
-        this.competitie = competitie;
     }
 
     public long getWedstrijd_id() {
@@ -111,6 +81,10 @@ public class Wedstrijd {
 
     public double getKansGelijk() {
         return kansGelijk;
+    }
+
+    public void setKansGelijk(double kansGelijk) {
+        this.kansGelijk = kansGelijk;
     }
 
     public double getKansUit() {

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface GebruikerRepository extends CrudRepository<Gebruiker, Long> {
 	
-	List<Gebruiker> findByGebruikersNaamAndPassword(String gebruikersNaam, String password);
+	List<Gebruiker> findByUsernameAndPassword(String gebruikersNaam, String password);
 
-	Optional<Gebruiker> findByGebruikersNaam(String gebruikersNaam);
+	Optional<Gebruiker> findByUsername(String gebruikersNaam);
 }
