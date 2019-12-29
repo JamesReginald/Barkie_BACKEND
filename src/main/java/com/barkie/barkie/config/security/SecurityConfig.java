@@ -34,28 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and()
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+        http.cors()
+            .and()
+            .csrf().disable()
+            .authorizeRequests()
+            .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
+            .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 //                .anyRequest().authenticated()
-                .and()
-                .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties))
-                .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtProperties))
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+            .and()
+            .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties))
+            .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtProperties))
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
-
-        return source;
     }
 }
