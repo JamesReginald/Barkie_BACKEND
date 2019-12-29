@@ -11,16 +11,20 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin("http://localhost:4200")
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
@@ -42,6 +46,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
 
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())){
+            response.addHeader("Access-Control-Allow-Headers", "Authorization");
+        } else if ("POST".equalsIgnoreCase(request.getMethod())) {
+            response.addHeader("Access-Control-Expose-Headers", "Authorization");
+        }
+
         return this.authenticationManager.authenticate(token);
     }
 
@@ -49,7 +59,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         User userdetails = (User) authentication.getPrincipal();
 
-        System.out.println(userdetails.getUsername() + " is succesfully authenticated with roles: " + userdetails.getAuthorities().toString());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        System.out.println(userdetails.getUsername() + " is succesfully authenticated on " + LocalDateTime.now().format(formatter));
 
         List<String> roles = userdetails
                 .getAuthorities()
