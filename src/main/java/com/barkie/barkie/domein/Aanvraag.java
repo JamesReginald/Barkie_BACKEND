@@ -24,7 +24,7 @@ public class Aanvraag {
 
     /** Gebruiker object that represents a user */
     @ManyToOne
-    @JoinColumn(name = "gebruiker_id")
+    @JoinColumn(name = "gebruiker_id", nullable = false)
     private Gebruiker gebruiker;
 
 

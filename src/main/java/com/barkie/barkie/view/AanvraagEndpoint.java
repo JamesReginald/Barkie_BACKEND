@@ -1,8 +1,14 @@
 package com.barkie.barkie.view;
 
 import com.barkie.barkie.controller.service.AanvraagService;
+import com.barkie.barkie.controller.service.GebruikerService;
 import com.barkie.barkie.domein.Aanvraag;
+import com.barkie.barkie.domein.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,9 +22,12 @@ public class AanvraagEndpoint {
     /** AanvraagService object to persist aanvraag objects */
     private final AanvraagService aanvraagService;
 
+    private final GebruikerService gebruikerService;
+
     @Autowired
-    public AanvraagEndpoint(AanvraagService aanvraagService) {
+    public AanvraagEndpoint(AanvraagService aanvraagService, GebruikerService gebruikerService) {
         this.aanvraagService = aanvraagService;
+        this.gebruikerService = gebruikerService;
     }
 
     /**
@@ -37,6 +46,12 @@ public class AanvraagEndpoint {
 
     @RequestMapping(method= RequestMethod.POST, value = "/")
     public void addAanvraag(@RequestBody Aanvraag aanvraag){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+
+        Gebruiker gebruikerFromDb = gebruikerService.getGebruikerFromNaam(currentPrincipalName);
+        aanvraag.setGebruiker(gebruikerFromDb);
+
         aanvraagService.save(aanvraag);
     }
 
