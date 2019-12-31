@@ -25,9 +25,10 @@ public class BarkieInitializer {
     private final CompetitieService competitieService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
+    private final AanvraagService aanvraagService;
 
     @Autowired
-    public BarkieInitializer(GebruikerService gebruikerService, WedstrijdService wedstrijdService, WeddenschapService weddenschapService, TeamService teamService, CompetitieService competitieService, RoleService roleService, PasswordEncoder passwordEncoder) {
+    public BarkieInitializer(GebruikerService gebruikerService, WedstrijdService wedstrijdService, WeddenschapService weddenschapService, TeamService teamService, CompetitieService competitieService, RoleService roleService, PasswordEncoder passwordEncoder, AanvraagService aanvraagService) {
         this.gebruikerService = gebruikerService;
         this.wedstrijdService = wedstrijdService;
         this.weddenschapService = weddenschapService;
@@ -35,6 +36,7 @@ public class BarkieInitializer {
         this.competitieService = competitieService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.aanvraagService = aanvraagService;
     }
 
     @PostConstruct
@@ -66,6 +68,11 @@ public class BarkieInitializer {
         Weddenschap weddenschap1 = createWeddenschap(20.00, user, Weddenschap.Bet.GELIJK, wedstrijd1);
         Weddenschap weddenschap2 = createWeddenschap(23.00, user, Weddenschap.Bet.THUIS, wedstrijd2);
         Weddenschap weddenschap3 = createWeddenschap(50, admin, Weddenschap.Bet.UIT, wedstrijd1);
+
+        Aanvraag aanvraag1 = createAanvraag(false, 43.0, user);
+        Aanvraag aanvraag2 = createAanvraag(true, 20.0, user);
+        Aanvraag aanvraag3 = createAanvraag(true, 56.0, user);
+        Aanvraag aanvraag4 = createAanvraag(false, 413.0, user);
     }
 
     /**
@@ -113,6 +120,16 @@ public class BarkieInitializer {
         }
         return saved;
     }
+
+    private Aanvraag createAanvraag(boolean isGoedgekeurd, double bedrag, Gebruiker gebruiker) {
+        Aanvraag aanvraag = new Aanvraag();
+        aanvraag.setGoedgekeurd(isGoedgekeurd);
+        aanvraag.setBedrag(bedrag);
+        aanvraag.setGebruiker(gebruiker);
+
+        return aanvraagService.save(aanvraag);
+    }
+
 
     private Wedstrijd createWedstrijd(LocalDateTime speelDatumTijd, double kansThuis, double kansGelijk,
                                       double kansUit, Team thuisTeam, Team uitTeam){
