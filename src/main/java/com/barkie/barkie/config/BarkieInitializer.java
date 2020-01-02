@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -126,6 +127,7 @@ public class BarkieInitializer {
         aanvraag.setGoedgekeurd(isGoedgekeurd);
         aanvraag.setBedrag(bedrag);
         aanvraag.setGebruiker(gebruiker);
+        aanvraag.setDateAdded(LocalDate.now());
 
         return aanvraagService.save(aanvraag);
     }
