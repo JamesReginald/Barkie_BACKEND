@@ -11,7 +11,7 @@ public class Gebruiker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long gebruiker_id;
+    private long id;
 
     /** String representation of the username of the user */
     private String username;
@@ -56,12 +56,8 @@ public class Gebruiker {
         this.password = password;
     }
 
-    public Long getGebruiker_id() {
-        return gebruiker_id;
-    }
-
-    public void setGebruiker_id(Long gebruiker_id) {
-        this.gebruiker_id = gebruiker_id;
+    public long getId() {
+        return id;
     }
 
     public String getUsername() {

@@ -11,9 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -40,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
             .antMatchers(HttpMethod.POST, "/**").authenticated()
+            .antMatchers("/gebruiker/**").authenticated()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
             .antMatchers("/v2/api-docs",
                     "/configuration/ui",
@@ -47,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/configuration/security",
                     "/swagger-ui.html",
                     "/webjars/**").permitAll()
-//                .anyRequest().authenticated()
+                .anyRequest().permitAll()
             .and()
             .addFilter(new JwtAuthenticationFilter(authenticationManager(), jwtProperties))
             .addFilter(new JwtAuthorizationFilter(authenticationManager(), jwtProperties))

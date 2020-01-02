@@ -7,10 +7,9 @@ import com.barkie.barkie.domein.Gebruiker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -51,6 +50,7 @@ public class AanvraagEndpoint {
 
         Gebruiker gebruikerFromDb = gebruikerService.getGebruikerFromNaam(currentPrincipalName);
         aanvraag.setGebruiker(gebruikerFromDb);
+        aanvraag.setDateAdded(LocalDate.now());
 
         aanvraagService.save(aanvraag);
     }
@@ -69,6 +69,19 @@ public class AanvraagEndpoint {
     public void updateAanvraag(@RequestBody Aanvraag aanvraag, @PathVariable long id){
         if(id==aanvraag.getId())
             aanvraagService.save(aanvraag);
+    }
+
+    @GetMapping(value = "/fromLoggedInUser")
+    public List<Aanvraag> getAanvragenFromUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Gebruiker gebruikerFromDb = getGebruikerFromSecurityContext(authentication);
+
+        return aanvraagService.getAllAanvragenFromUserId(gebruikerFromDb.getId());
+    }
+
+    private Gebruiker getGebruikerFromSecurityContext(Authentication authentication){
+        final String currentPrincipalName = authentication.getName();
+        return gebruikerService.getGebruikerFromNaam(currentPrincipalName);
     }
 
 

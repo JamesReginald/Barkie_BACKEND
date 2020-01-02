@@ -3,6 +3,7 @@ package com.barkie.barkie.domein;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Created by Joshua
@@ -22,11 +23,13 @@ public class Aanvraag {
     @Column
     private double bedrag;
 
+    /** LocalDate object that represents the added date */
+    private LocalDate dateAdded;
+
     /** Gebruiker object that represents a user */
     @ManyToOne
-    @JoinColumn(name = "gebruiker_id", nullable = false)
+    @JoinColumn(name = "gebruiker", nullable = false)
     private Gebruiker gebruiker;
-
 
     public long getId() {
         return id;
@@ -54,6 +57,14 @@ public class Aanvraag {
 
     public void setGebruiker(Gebruiker gebruiker) {
         this.gebruiker = gebruiker;
+    }
+
+    public LocalDate getDateAdded() {
+        return dateAdded;
+    }
+
+    public void setDateAdded(LocalDate dateAdded) {
+        this.dateAdded = dateAdded;
     }
 
     @Override

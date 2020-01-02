@@ -4,6 +4,8 @@ import com.barkie.barkie.domein.Aanvraag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import com.barkie.barkie.controller.service.GebruikerService;
@@ -14,12 +16,13 @@ import java.util.Iterator;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "gebruiker")
 public class GebruikerEndpoint {
 
 	@Autowired
     GebruikerService gs;
 	
-	@PostMapping("gebruiker/create")
+	@PostMapping("/create")
 	public ResponseEntity<Gebruiker> setGebruiker(@RequestBody Gebruiker newGebruiker) {
 		if (gs.getGebruikerFromNaam(newGebruiker.getUsername()) == null) {
 			return new ResponseEntity<>(gs.save(newGebruiker), HttpStatus.OK);
@@ -27,13 +30,8 @@ public class GebruikerEndpoint {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 	}
-	
-	@PostMapping("gebruiker/login")
-	public ResponseEntity<Gebruiker> getGebruiker(@RequestBody Gebruiker queryGebruiker) {
-		return gs.getGebruiker(queryGebruiker);
-	}
 
-	@GetMapping("gebruiker/")
+	@GetMapping("/")
 	public List<Gebruiker> getAllGebruikers() {
 		Iterator<Gebruiker> iterator = gs.getAll().iterator();
 		List<Gebruiker> gebruikers = new ArrayList<>();
@@ -42,12 +40,14 @@ public class GebruikerEndpoint {
 		}
 		return gebruikers;
 	}
-	@RequestMapping("gebruiker/{id}")
-	public Gebruiker gebruiker(@PathVariable long id){
-		return gs.getFromId(id);
+
+	@GetMapping("/fromLoggedInUser")
+	public Gebruiker gebruiker(){
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		return getGebruikerFromSecurityContext(authentication);
 	}
 
-	@RequestMapping(method = RequestMethod.PUT, value = "gebruiker/{id}/saldo")
+	@RequestMapping(method = RequestMethod.PUT, value = "/{id}/saldo")
 	public void setSaldo(@PathVariable long id, @RequestBody Aanvraag aanvraag){
 		Gebruiker gebruiker = gs.getFromId(id);
 		double geldAanvraag = aanvraag.getBedrag();
@@ -56,5 +56,10 @@ public class GebruikerEndpoint {
 			gs.save(gebruiker);
 		}
 
+	}
+
+	private Gebruiker getGebruikerFromSecurityContext(Authentication authentication){
+		final String currentPrincipalName = authentication.getName();
+		return gs.getGebruikerFromNaam(currentPrincipalName);
 	}
 }
