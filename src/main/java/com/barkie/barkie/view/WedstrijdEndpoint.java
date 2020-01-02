@@ -32,4 +32,10 @@ public class WedstrijdEndpoint {
 	public ResponseEntity<Wedstrijd> makeWedstrijd(@RequestBody Wedstrijd game) {
 		return new ResponseEntity<>(ws.save(game), HttpStatus.OK);
 	}
+	
+	@PostMapping("wedstrijden")
+	public void makeWedstrijden(@RequestBody List<Wedstrijd> games) {
+		ws.setWedstrijden(games);
+	}
 }
+

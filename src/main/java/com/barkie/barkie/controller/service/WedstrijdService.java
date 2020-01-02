@@ -31,5 +31,9 @@ public class WedstrijdService extends DefaultService<Wedstrijd>{
     	}
     	return new ResponseEntity<>(aankomend, HttpStatus.OK);
     }
+    
+    public void setWedstrijden(List<Wedstrijd> wedstrijden) {
+    	wedstrijdRepository.saveAll(wedstrijden);
+    }
 
 }
