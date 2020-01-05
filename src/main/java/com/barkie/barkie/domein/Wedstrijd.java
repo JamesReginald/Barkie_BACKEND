@@ -43,6 +43,10 @@ public class Wedstrijd {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Weddenschap> weddenschappen;
 
+    @ManyToOne
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private Competitie competitie;
+
     public Team getThuisTeam() {
         return thuisTeam;
     }
@@ -117,5 +121,13 @@ public class Wedstrijd {
 
     public void setWeddenschappen(List<Weddenschap> weddenschappen) {
         this.weddenschappen = weddenschappen;
+    }
+
+    public Competitie getCompetitie() {
+        return competitie;
+    }
+
+    public void setCompetitie(Competitie competitie) {
+        this.competitie = competitie;
     }
 }

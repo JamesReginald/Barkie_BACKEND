@@ -10,10 +10,10 @@ public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long team_id;
+    private long id;
 
     /** String representation of the name of the team */
-    private String naamTeam;
+    private String naam;
 
     /** List containing Competitie objects */
     @ManyToMany
@@ -23,8 +23,12 @@ public class Team {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<Competitie> competities;
 
-    public long getTeam_id() {
-        return team_id;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public List<Competitie> getCompetities() {
@@ -35,11 +39,11 @@ public class Team {
         this.competities = competities;
     }
 
-    public String getNaamTeam() {
-        return naamTeam;
+    public String getNaam() {
+        return naam;
     }
 
-    public void setNaamTeam(String naamTeam) {
-        this.naamTeam = naamTeam;
+    public void setNaam(String naam) {
+        this.naam = naam;
     }
 }

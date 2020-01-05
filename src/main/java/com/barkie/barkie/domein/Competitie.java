@@ -1,7 +1,6 @@
 package com.barkie.barkie.domein;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +9,7 @@ public class Competitie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long comp_id;
+    private long id;
 
     /** String representation of the name of the competition */
     private String naam;
@@ -19,8 +18,19 @@ public class Competitie {
     @ManyToMany(mappedBy = "competities")
     private List<Team> teams;
 
-    public long getComp_id() {
-        return comp_id;
+    @OneToMany(mappedBy = "competitie", cascade = CascadeType.ALL)
+    private List<Wedstrijd> wedstrijden;
+
+    public long getId() {
+        return id;
+    }
+
+    public List<Wedstrijd> getWedstrijden() {
+        return wedstrijden;
+    }
+
+    public void setWedstrijden(List<Wedstrijd> wedstrijden) {
+        this.wedstrijden = wedstrijden;
     }
 
     public String getNaam() {
@@ -43,7 +53,6 @@ public class Competitie {
     @Override
     public String toString() {
         return "Competitie{" +
-                "comp_id=" + comp_id +
                 ", naam='" + naam + '\'' +
                 '}';
     }
