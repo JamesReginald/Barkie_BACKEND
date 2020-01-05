@@ -36,9 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers(HttpMethod.DELETE, "/**").hasRole("ADMIN")
-            .antMatchers(HttpMethod.POST, "/**").authenticated()
-            .antMatchers("/gebruiker/**").authenticated()
+            .antMatchers(HttpMethod.POST, "/aanvraag/**").authenticated()
+            .antMatchers(HttpMethod.POST, "/wedstrijd/**").authenticated()
             .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+            .antMatchers("/gebruiker/create").permitAll()
             .antMatchers("/v2/api-docs",
                     "/configuration/ui",
                     "/swagger-resources/**",

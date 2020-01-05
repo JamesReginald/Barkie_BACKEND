@@ -106,7 +106,7 @@ public class BarkieInitializer {
 
     private Team createTeam(String naam) {
         Team team = new Team();
-        team.setNaamTeam(naam);
+        team.setNaam(naam);
         return teamService.save(team);
     }
 
